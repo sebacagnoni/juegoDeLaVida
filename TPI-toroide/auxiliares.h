@@ -18,14 +18,27 @@ bool esRectangulo(vector<vector<bool>> r);
 //
 
 //Ej 2
+bool enRangoToroide(int f, int c, vector<vector<bool>> t);
 //
 
 //Ej 3
+int cantidadDeVivas(vector<vector<bool>> t);
 //
 
 //Ej 4
 int superficieTotal(toroide t);
+//
 
+
+//Ej 5
+bool Estaviva(int f, int c, toroide t);
+bool vivaToroide(int f, int c, toroide t);
+bool vecinaViva(toroide t, int f, int c, int i, int j);
+int vecinosVivos(toroide t, int f, int c);
+
+//Ej 6
+bool debeVivir(toroide t, int f, int c);
+bool EstaMuerta(int f, int c, toroide t);
 //
 
 #endif //REUNIONESREMOTAS_AUXILIARES_H

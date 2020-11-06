@@ -57,21 +57,33 @@ vector<posicion> posicionesVivas(toroide const &t) {
 // EJERCICIO 4
 float densidadPoblacion(toroide const &t) {
 	float resp = -1;
-    // Implementacion
-    return resp;
+	if(toroideValido(t)){
+	    resp = (resp + 1 + cantidadDeVivas(t)) / superficieTotal(t);
+	}
+	return resp ;
 }
 
 // EJERCICIO 5
 int cantidadVecinosVivos(toroide const &t, int f, int c) {
     float resp = 0;
-    // Implementacion
+    if(toroideValido(t) && enRangoToroide(f,c,t)){
+         resp = vecinosVivos(t,f,c);
+
+
+           }
+
+
     return resp;
 }
 
 // EJERCICIO 6
 bool evolucionDePosicion(toroide const &t, posicion x) {
 	bool resp = false;
-    // Implementacion
+	if(toroideValido(t) && enRangoToroide(x.first,x.second, t)){
+	    resp = debeVivir(t, x.first, x.second);
+
+	}
+
     return resp;
 }
 
