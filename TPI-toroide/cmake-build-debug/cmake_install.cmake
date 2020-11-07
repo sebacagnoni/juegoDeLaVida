@@ -1,4 +1,4 @@
-# Install script for directory: /cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide
+# Install script for directory: /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/cmake-build-debug/lib/googletest-master/cmake_install.cmake")
+  include("/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/cmake-build-debug/lib/googletest-master/cmake_install.cmake")
 
 endif()
 
@@ -46,5 +46,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

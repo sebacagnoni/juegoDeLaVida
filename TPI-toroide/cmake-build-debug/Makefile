@@ -48,10 +48,10 @@ RM = /cygdrive/c/Users/Edu/AppData/Local/JetBrains/CLion2020.1/cygwin_cmake/bin/
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide"
+CMAKE_SOURCE_DIR = /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/cmake-build-debug"
+CMAKE_BINARY_DIR = /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,9 +126,9 @@ list_install_components/fast: list_install_components
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/cmake-build-debug/CMakeFiles" "/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/cmake-build-debug/CMakeFiles /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

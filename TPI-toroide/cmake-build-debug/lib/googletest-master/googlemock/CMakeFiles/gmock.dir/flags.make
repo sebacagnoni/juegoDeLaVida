@@ -6,5 +6,5 @@ CXX_FLAGS = -g    -Wall -Wshadow -Werror -Wno-error=dangling-else -DGTEST_HAS_PT
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/lib/googletest-master/googlemock/include" -I"/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/lib/googletest-master/googlemock" -I"/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/lib/googletest-master/googletest" -isystem "/cygdrive/c/Users/Edu/Desktop/Algo 1 TP/TP TOROIDE/TPI-template/TPI-toroide/lib/googletest-master/googletest/include" 
+CXX_INCLUDES = -I/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/lib/googletest-master/googlemock/include -I/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/lib/googletest-master/googlemock -I/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/lib/googletest-master/googletest -isystem /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/lib/googletest-master/googletest/include 
 

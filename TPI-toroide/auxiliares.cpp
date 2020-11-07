@@ -36,10 +36,14 @@ bool misma_longitud_secuencias(vector<vector<bool>> r){
     return res;
 }
 
-//PREGUNTAR ITERADORES
+
 bool esRectangulo(vector<vector<bool>> r){
     return ((r.size() > 0) && (cant_columnas(r) > 0) && (misma_longitud_secuencias(r)));
 
+}
+
+bool esToroide(vector<vector<bool>> t){
+    return ((t.size() >= 3) && (esRectangulo(t)) && (cant_columnas(t) >= 3));
 }
 
 //EJ 2************************************************************//
@@ -84,24 +88,29 @@ bool enRangoToroide2(int f, int c, toroide t){
 }
 */
 bool Estaviva(int f, int c, toroide t){
-    return enRangoToroide(f,c,t) && t[f][c] == true;
+    return (enRangoToroide(f,c,t) && (t[f][c] == true));
 
 }
+
+//CONSULTAR SI HAY OTRA FORMA DE QUE -1 % 2 = 1 Y NO -1
 bool vivaToroide(int f, int c, toroide t){
+    bool verif = false;
+        f = f + t.size();
+        c = c + ((t[0]).size());
+        verif = (Estaviva(f % t.size(), c % ((t[0]).size()), t));
 
-    return Estaviva(f % t.size(), c % (t[0]).size(), t);
 
-
+        return verif;
 }
 
 bool vecinaViva(toroide t, int f, int c, int i, int j){
-
-    return vivaToroide(f+i, c+j, t);
+    return vivaToroide((f+i), (c+j), t);
 }
 /* f = 0, c = 0
-vV(t, 0, 0, -1, -1) --> vT(0-1,0-1, t) --> Et(-1 % 4= 3, -1 % 4 = 3) = false
-vV(t, 0, 0, -1,  0) --> vT(0-1,0  , t) --> Et(-1 % 4= 3, 0 % 4 = 0 ) = false
-vV(t, 0, 0, -1,  1) --> vT(0-1, 1 , t) --> Et(3, 1, t) = false
+ * si (0 == 0 || 0 == 0) = false
+vV(t, 0, 0, -1, -1) && (-1 != 0 || -1 != 0)--> vT(0-1,0-1, t) --> Et(-1 % 4= 3, -1 % 4 = 3)  = false
+vV(t, 0, 0, -1,  0) && (-1 != 0 ||  0 != 0)--> vT(0-1,0  , t) --> Et(-1 % 4= 3, 0 % 4 = 0 ) = false
+vV(t, 0, 0, -1,  1) && (-1 != 0 ||  1 != 0)--> vT(0-1, 1 , t) --> Et(3, 1, t) = false
 
 vV(t, 0, 0, 0, 2) --> vT(0-1, 1 , t) --> Et(3, 1, t) = false
 
@@ -109,15 +118,18 @@ vV(t, 0, 0, 0, 2) --> vT(0-1, 1 , t) --> Et(3, 1, t) = false
 */
 int vecinosVivos(toroide t, int f, int c){
     int sumaVivos = 0;
-for(int i = -1; i < 2; i++) {
-    for (int j = -1; j < 2; j++){
-        if(vecinaViva(t, f, c, i, j) && (i != 0 || j != 0)){
+    for(int i = -1; i < 2; i++) {
+       for (int j = -1; j < 2; j++){
+           if((vecinaViva(t, f, c, i, j) && ((i != 0) || (j != 0))) ){
             sumaVivos++;
-        }
-    }
-}
+            }
+           else{
+           }
 
-return sumaVivos;
+       }
+    }
+
+    return sumaVivos;
 }
 
 
@@ -129,9 +141,42 @@ bool EstaMuerta(int f, int c, toroide t){
 }
 
 
-bool debeVivir(toroide t, int f, int c){
-    return (Estaviva(f,c,t) && (2 <= vecinosVivos(t,f,c)) && (vecinosVivos(t,f,c) <= 3)) ||
-            (EstaMuerta(f,c,t) && vecinosVivos(t,f,c) == 3) ;
+bool debeVivir(toroide t, int f,  int c){
+    return (Estaviva(f, c, t) && (2 <= vecinosVivos(t, f, c)) && (vecinosVivos(t, f, c) <= 3)) ||
+           (EstaMuerta(f, c, t) && (vecinosVivos(t, f, c) == 3)) ;
 
 }
 //EJ 7************************************************************//
+//PREGUNTAR POR CON +2 Y NO CON SOLO .SIZE()
+vector<bool>vaciarSecuencia(vector<bool> sec){
+    int i = 0;
+    while(i < sec.size()+2){
+        sec.pop_back();
+        i++;
+    }
+    return sec;
+}
+
+//CAMBIA A T?
+void evolucionarToroideUnTick(toroide &t){
+vector<vector<bool>>evoldt;
+vector<bool> secEv;
+for(int f = 0; f < t.size(); f++){
+    for(int c = 0; c < (t[f]).size(); c++){
+        if(debeVivir(t,f,c)){
+            secEv.push_back(true);
+
+        }
+        else{
+            secEv.push_back(false);
+        }
+    }
+    evoldt.push_back(secEv);
+    secEv = vaciarSecuencia(secEv);
+
+}
+
+t = evoldt;
+
+
+}

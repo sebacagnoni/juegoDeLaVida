@@ -5,7 +5,7 @@
 // EJERCICIO 1
 bool toroideValido(vector<vector<bool>> const &t) {
     bool resp = false;
-    resp = ((t.size() >= 3) && (esRectangulo(t)) && (cant_columnas(t) >= 3));
+    resp = esToroide(t);
     return resp;
 }
 
@@ -40,7 +40,7 @@ bool toroideMuerto(toroide const &t) {
 // EJERCICIO 3
 vector<posicion> posicionesVivas(toroide const &t) {
 	vector<posicion> vivos;
-    if(toroideValido(t)){
+    if(esToroide(t)){
         for(int f = 0; f < t.size(); f++){
             for(int c = 0;c < t[0].size(); c++){
                 if(t[f][c] == true){
@@ -57,7 +57,7 @@ vector<posicion> posicionesVivas(toroide const &t) {
 // EJERCICIO 4
 float densidadPoblacion(toroide const &t) {
 	float resp = -1;
-	if(toroideValido(t)){
+	if(esToroide(t)){
 	    resp = (resp + 1 + cantidadDeVivas(t)) / superficieTotal(t);
 	}
 	return resp ;
@@ -66,7 +66,7 @@ float densidadPoblacion(toroide const &t) {
 // EJERCICIO 5
 int cantidadVecinosVivos(toroide const &t, int f, int c) {
     float resp = 0;
-    if(toroideValido(t) && enRangoToroide(f,c,t)){
+    if(esToroide(t) && enRangoToroide(f,c,t)){
          resp = vecinosVivos(t,f,c);
 
 
@@ -79,7 +79,7 @@ int cantidadVecinosVivos(toroide const &t, int f, int c) {
 // EJERCICIO 6
 bool evolucionDePosicion(toroide const &t, posicion x) {
 	bool resp = false;
-	if(toroideValido(t) && enRangoToroide(x.first,x.second, t)){
+	if(esToroide(t) && enRangoToroide(x.first,x.second, t)){
 	    resp = debeVivir(t, x.first, x.second);
 
 	}
@@ -88,9 +88,15 @@ bool evolucionDePosicion(toroide const &t, posicion x) {
 }
 
 // EJERCICIO 7
+// CUAL SERIA LA PRE ?
+//CONSULTAR RETURN?
 void evolucionToroide(toroide &t){
-    // Implementacions
-    return;
+    if(esToroide(t)){
+        evolucionarToroideUnTick(t);
+
+
+    }
+
 }
 
 // EJERCICIO 8

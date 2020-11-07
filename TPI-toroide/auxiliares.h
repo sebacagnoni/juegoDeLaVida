@@ -12,6 +12,7 @@ pair<int,int> mp(int a, int b);
 vector<posicion> ordenar(vector<posicion> &v);
 
 //Ej 1
+bool esToroide(vector<vector<bool>> t);
 int cant_columnas(vector<vector<bool>> t);
 bool misma_longitud_secuencias(vector<vector<bool>> r);
 bool esRectangulo(vector<vector<bool>> r);
@@ -41,4 +42,7 @@ bool debeVivir(toroide t, int f, int c);
 bool EstaMuerta(int f, int c, toroide t);
 //
 
+//Ej 7
+void evolucionarToroideUnTick(toroide &t);
+//
 #endif //REUNIONESREMOTAS_AUXILIARES_H
