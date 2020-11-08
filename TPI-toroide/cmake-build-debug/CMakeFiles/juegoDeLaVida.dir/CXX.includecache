@@ -284,16 +284,6 @@ cxxabi.h
 acxx_demangle.h
 -
 
-/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/auxiliares.cpp
-definiciones.h
-/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/definiciones.h
-auxiliares.h
-/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/auxiliares.h
-
-/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/auxiliares.h
-definiciones.h
-/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/definiciones.h
-
 /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/definiciones.h
 vector
 -
@@ -306,7 +296,7 @@ algorithm
 definiciones.h
 /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/definiciones.h
 
-/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/tests/EJ07_evolucionToroideTEST.cpp
+/cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/tests/EJ09_esPeriodicoTEST.cpp
 ../ejercicios.h
 /cygdrive/c/Users/Edu/tp-toroide/TPI-toroide/ejercicios.h
 gtest/gtest.h

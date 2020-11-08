@@ -11,28 +11,11 @@ bool toroideValido(vector<vector<bool>> const &t) {
 
 // EJERCICIO 2
 bool toroideMuerto(toroide const &t) {
-
     bool resp = false;
-    int f = 0;
-    int c = 0;
-    int chequeado = 0;
     if (toroideValido(t)) {
-        while (f < t.size()) {
-            while (c < (t[f]).size()) {
-                if (!t[f][c]) {
-                    chequeado++;
-                }
-                else {
-                }
-                c++;
-            }
-            c = 0;
-            f++;
-        }
+        resp = EstoroideMuerto(t);
     }
 
-
-    resp = (t.size() > 0) && (chequeado == (t[0].size()) * (t.size()));
     return resp;
 
 }
@@ -102,24 +85,36 @@ void evolucionToroide(toroide &t){
 // EJERCICIO 8
 toroide evolucionMultiple(toroide const &t, int K) {
     toroide out;
-    // Implementacion
+    if(esToroide(t) && (K >= 1)){
+        out  = evolucionartoroideKVecesT(t,K);
+
+    }
     return out;
 }
 
 // EJERCICIO 9
+
 bool esPeriodico(toroide const &t, int &p) {
     bool resp = false;
-    // Implementacion
+    //CONSULTAR CUMPLEEVOLUCIONCICLICA
+    if(esToroide(t) && cumpleEvolucionCiclica(t)){
+        p = TickDondeSeRepiteT(t);
+        resp = true;
+
+    }
+
+
     return resp;
 }
 
 // EJERCICIO 10
 bool primosLejanos(toroide const &t, toroide const &u) {
-	bool resp = false; 
-    // Implementacion
+    bool resp = false;
+    if (esToroide(t) && esToroide(u) && mismaDimension(t, u)) {
+         resp = sonPrimosLejanos(t, u);
+    }
     return resp;
 }
-
 // EJERCICIO 11
 int seleccionNatural(vector <toroide> ts) {
     int resp = -1;

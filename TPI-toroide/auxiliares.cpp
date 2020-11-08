@@ -48,7 +48,31 @@ bool esToroide(vector<vector<bool>> t){
 
 //EJ 2************************************************************//
 
+bool EstoroideMuerto(toroide const &t) {
 
+    bool resp = false;
+    int f = 0;
+    int c = 0;
+    int chequeado = 0;
+        while (f < t.size()) {
+            while (c < (t[f]).size()) {
+                if (!t[f][c]) {
+                    chequeado++;
+                }
+                else {
+                }
+                c++;
+            }
+            c = 0;
+            f++;
+        }
+
+
+
+    resp = (t.size() > 0) && (chequeado == (t[0].size()) * (t.size()));
+    return resp;
+
+}
 
 bool enRangoToroide(int f, int c, vector<vector<bool>> t){
     return (t.size() > 0) && (f >= 0 && f < t.size()) && (c >= 0 && c < t[0].size());
@@ -150,7 +174,7 @@ bool debeVivir(toroide t, int f,  int c){
 //PREGUNTAR POR CON +2 Y NO CON SOLO .SIZE()
 vector<bool>vaciarSecuencia(vector<bool> sec){
     int i = 0;
-    while(i < sec.size()+2){
+    while(i < sec.size()){
         sec.pop_back();
         i++;
     }
@@ -172,7 +196,7 @@ for(int f = 0; f < t.size(); f++){
         }
     }
     evoldt.push_back(secEv);
-    secEv = vaciarSecuencia(secEv);
+    secEv.clear();
 
 }
 
@@ -180,3 +204,65 @@ t = evoldt;
 
 
 }
+
+//EJ 8************************************************************//
+
+toroide evolucionartoroideKVecesT(toroide t, int k){
+
+    for(int i = 1; i <= k; i++){
+        evolucionarToroideUnTick(t);
+    }
+
+    return t;
+}
+
+//EJ 9************************************************************//
+
+
+
+bool cumpleEvolucionCiclica(toroide t){
+    int k = 1;
+    toroide tInicial;
+    tInicial =  t;
+    toroide tTemp;
+    tTemp = evolucionartoroideKVecesT(t,k);
+    while(not (EstoroideMuerto(tTemp)) && (tTemp != tInicial)){
+        k++;
+        tTemp = evolucionartoroideKVecesT(t,k);
+
+    }
+    return (tTemp == tInicial) && not(EstoroideMuerto(tTemp));
+
+}
+
+
+//Solo para toroides que sabemos que son ciclicos
+int TickDondeSeRepiteT(toroide t){
+    int tick = 1;
+    toroide tInicial;
+    tInicial = t;
+    evolucionarToroideUnTick(t);
+
+    while((t  != tInicial)){
+        evolucionarToroideUnTick(t);
+        tick++;
+
+    }
+
+    return tick;
+}
+
+
+
+//EJ 10************************************************************//
+
+bool mismaDimension(toroide t, toroide u){
+    return (t.size() == u.size()) && (cant_columnas(t) == cant_columnas(u));
+}
+
+bool sonPrimosLejanos(toroide t, toroide u){
+return 0;
+}
+
+//EJ 11************************************************************//
+

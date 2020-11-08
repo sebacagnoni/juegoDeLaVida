@@ -20,6 +20,7 @@ bool esRectangulo(vector<vector<bool>> r);
 
 //Ej 2
 bool enRangoToroide(int f, int c, vector<vector<bool>> t);
+bool EstoroideMuerto(toroide const &t);
 //
 
 //Ej 3
@@ -44,5 +45,20 @@ bool EstaMuerta(int f, int c, toroide t);
 
 //Ej 7
 void evolucionarToroideUnTick(toroide &t);
+//
+
+//Ej 8
+toroide evolucionartoroideKVecesT(toroide t, int k);
+//
+
+//Ej 9
+bool cumpleEvolucionCiclica(toroide t);
+bool seExtingueEnUnTick(toroide &t);
+int TickDondeSeRepiteT(toroide t);
+//
+
+//Ej 10
+bool mismaDimension(toroide t, toroide u);
+bool sonPrimosLejanos(toroide t, toroide u);
 //
 #endif //REUNIONESREMOTAS_AUXILIARES_H
