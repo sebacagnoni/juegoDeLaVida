@@ -108,11 +108,13 @@ bool esPeriodico(toroide const &t, int &p) {
 }
 
 // EJERCICIO 10
-bool primosLejanos(toroide const &t, toroide const &u) {
+
+bool primosLejanos(toroide const &t, toroide const  &u) {
     bool resp = false;
-    if (esToroide(t) && esToroide(u) && mismaDimension(t, u)) {
-         resp = sonPrimosLejanos(t, u);
+    if(esToroide(t) && esToroide(u) && mismaDimension(t,u)){
+        resp =  sonPrimosLejanos(t,u) || sonPrimosLejanos(u,t);
     }
+
     return resp;
 }
 // EJERCICIO 11
@@ -125,7 +127,11 @@ int seleccionNatural(vector <toroide> ts) {
 // EJERCICIO 12
 toroide fusionar(toroide const &t, toroide const &u) {
     toroide out;
-    // Implementacion
+    if(esToroide(t) && esToroide(u) && mismaDimension(t,u)){
+        out = interseccionarVivas(t,u);
+    }
+
+
     return out;
 }
 
