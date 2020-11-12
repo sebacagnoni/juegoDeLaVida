@@ -2,6 +2,8 @@
 #include "ejercicios.h"
 #include "auxiliares.h"
 
+
+//NO TENER EN CUENTA EL CICLICO CORRIDO
 // EJERCICIO 1
 bool toroideValido(vector<vector<bool>> const &t) {
     bool resp = false;
@@ -12,9 +14,8 @@ bool toroideValido(vector<vector<bool>> const &t) {
 // EJERCICIO 2
 bool toroideMuerto(toroide const &t) {
     bool resp = false;
-    if (toroideValido(t)) {
-        resp = EstoroideMuerto(t);
-    }
+    resp = EstoroideMuerto(t);
+
 
     return resp;
 
@@ -40,22 +41,14 @@ vector<posicion> posicionesVivas(toroide const &t) {
 // EJERCICIO 4
 float densidadPoblacion(toroide const &t) {
 	float resp = -1;
-	if(esToroide(t)){
-	    resp = (resp + 1 + cantidadDeVivas(t)) / superficieTotal(t);
-	}
+	resp = (cantidadDeVivas(t)) / superficieTotal(t);
 	return resp ;
 }
 
 // EJERCICIO 5
 int cantidadVecinosVivos(toroide const &t, int f, int c) {
     float resp = 0;
-    if(esToroide(t) && enRangoToroide(f,c,t)){
-         resp = vecinosVivos(t,f,c);
-
-
-           }
-
-
+    resp = vecinosVivos(t,f,c);
     return resp;
 }
 
@@ -74,21 +67,15 @@ bool evolucionDePosicion(toroide const &t, posicion x) {
 // CUAL SERIA LA PRE ?
 //CONSULTAR RETURN?
 void evolucionToroide(toroide &t){
-    if(esToroide(t)){
         evolucionarToroideUnTick(t);
 
-
-    }
 
 }
 
 // EJERCICIO 8
 toroide evolucionMultiple(toroide const &t, int K) {
     toroide out;
-    if(esToroide(t) && (K >= 1)){
-        out  = evolucionartoroideKVecesT(t,K);
-
-    }
+    out  = evolucionartoroideKVecesT(t,K);
     return out;
 }
 
@@ -111,40 +98,38 @@ bool esPeriodico(toroide const &t, int &p) {
 
 bool primosLejanos(toroide const &t, toroide const  &u) {
     bool resp = false;
-    if(esToroide(t) && esToroide(u) && mismaDimension(t,u)){
+
         resp =  sonPrimosLejanos(t,u) || sonPrimosLejanos(u,t);
-    }
+
 
     return resp;
 }
 // EJERCICIO 11
 int seleccionNatural(vector <toroide> ts) {
     int resp = -1;
-	// Implementacion
+    resp = ElIndiceDelQueDuraMas( ts);
     return resp;
 }
 
 // EJERCICIO 12
 toroide fusionar(toroide const &t, toroide const &u) {
     toroide out;
-    if(esToroide(t) && esToroide(u) && mismaDimension(t,u)){
-        out = interseccionarVivas(t,u);
-    }
-
-
+    out = interseccionarVivas(t,u);
     return out;
 }
 
 // EJERCICIO 13
 bool vistaTrasladada(toroide const &t, toroide const &u){
 	bool resp = false;
-    // Implementacion
-    return resp;
+	resp = esTrasladada(t,u);
+
+	return resp;
 }
 
 // EJERCICIO 14
+//PRE: esToroide(t) && cantidadDeVivas(t) > 0
 int menorSuperficieViva(toroide const &t){
 	int resp = -1;
-	// Implementacion
+    resp = BuscarElAreaMasMinimaViva(t);
 	return resp;
 }

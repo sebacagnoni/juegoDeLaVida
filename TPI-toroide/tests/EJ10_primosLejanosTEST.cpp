@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 TEST(primosLejanosTEST, toroideHorizontalPeriodico2){
     toroide t1 = { 
                   {false, false, false, false, false}, 

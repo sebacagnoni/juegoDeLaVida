@@ -71,8 +71,24 @@ bool cumpleEvoCiclicaCorrida(toroide t);
 
 //
 //Ej 11
+bool todosValidos(vector<toroide> ts);
+bool todosVivos(vector <toroide> ts);
+bool todosSeExtinguen(vector <toroide> ts);
+int ElIndiceDelQueDuraMas(vector<toroide> ts);
 //
 //Ej 12
 toroide interseccionarVivas(toroide t, toroide u);
+//
+//Ej13
+bool esTrasladada(toroide t, toroide u);
+//
+//Ej14
+vector<pair<int, int>> ColectorDePosicionesVivas(toroide t);
+int FilaMinima(vector<pair<int,int>> Posvivas);
+int FilaMaxima(vector<pair<int,int>> Posvivas);
+int ColumnaMinima(vector<pair<int,int>> Posvivas);
+int ColumnaMaxima(vector<pair<int,int>> Posvivas);
+int AreaMinimaVivas(toroide t);
+int BuscarElAreaMasMinimaViva(toroide t);
 //
 #endif //REUNIONESREMOTAS_AUXILIARES_H

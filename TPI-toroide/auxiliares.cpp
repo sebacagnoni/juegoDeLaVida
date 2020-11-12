@@ -42,7 +42,7 @@ bool esRectangulo(vector<vector<bool>> r){
 
 }
 
-bool esToroide(vector<vector<bool>> t){
+bool esToroide(toroide t){
     return ((t.size() >= 3) && (esRectangulo(t)) && (cant_columnas(t) >= 3));
 }
 
@@ -187,14 +187,8 @@ vector<vector<bool>>evoldt;
 vector<bool> secEv;
 for(int f = 0; f < t.size(); f++){
     for(int c = 0; c < (t[f]).size(); c++){
-        if(debeVivir(t,f,c)){
-            secEv.push_back(true);
-
-        }
-        else{
-            secEv.push_back(false);
-        }
-    }
+          secEv.push_back(debeVivir(t,f,c));
+     }
     evoldt.push_back(secEv);
     secEv.clear();
 
@@ -276,7 +270,7 @@ bool mismaDimension(toroide t, toroide u){
 
 bool estaTenTT(vector<toroide> tt,toroide t){
     int cheq = 0;
-    for(int p = 0; (p < tt.size()) && (tt[0] != t); p++){
+    for(int p = 0; (p < tt.size()) && (tt[p] != t); p++){
         cheq++;
 
     }
@@ -328,7 +322,7 @@ vector<toroide> EvolucionesDeTCiclicos(toroide t){
 
 
 // el ciclico original esta contemplado
-/*
+
 bool cumpleEvolucionCiclicaCorrida(toroide t){
     vector<toroide> tt;
     tt.push_back(t);
@@ -342,7 +336,8 @@ bool cumpleEvolucionCiclicaCorrida(toroide t){
 
     return (not(EstoroideMuerto(t))) && estaTenTT(tt,t);
 }
-*/
+
+
 bool cumpleEvoCiclicaCorrida(toroide t){
     vector<toroide> tt;
     toroide g;
@@ -389,6 +384,72 @@ return EncontrarElSegundo_en_EvosDelPrimero(t, u);
 //EJ 11************************************************************//
 
 
+bool esEvolucionNivelK(toroide tf, toroide ti, int k){
+    bool resp = false;
+    if((k >= 0) && ((evolucionartoroideKVecesT(ti, k)) == tf) ){
+        resp = true;
+    }
+    return resp;
+
+}
+
+
+
+
+
+
+
+
+
+
+bool todosVivos(vector <toroide> ts){
+    int cheq = 0;
+    for(int i = 0 ; (i < ts.size()) && not (EstoroideMuerto(ts[i]))  ; i++ ){
+        cheq++;
+    }
+    return (cheq == ts.size());
+}
+
+bool todosValidos(vector<toroide> ts){
+    int cheq = 0;
+    for(int i = 0; (i < ts.size()) && (esToroide(ts[i])); i++){
+        cheq++;
+    }
+
+    return (cheq == (ts.size()));
+
+}
+
+bool todosSeExtinguen(vector <toroide> ts){
+    int cheq = 0;
+    for(int i = 0; (i < ts.size()) && not(cumpleEvolucionCiclicaCorrida(ts[i]));i++){
+         cheq++;
+    }
+
+    return (cheq == ts.size());
+
+}
+
+
+//tiene sentido si considero la Pre del Ej 11
+// Todos Vivos, Todos Validos y se Extinguen en algun momento
+int ElIndiceDelQueDuraMas(vector<toroide> ts){
+    int DuraMas = 0;
+    for(int i = 1 ; i < ts.size(); i++){
+     if(TickDondeMuere(ts[DuraMas]) <= TickDondeMuere(ts[i])){
+         DuraMas = i;
+
+     }
+     else{
+
+     }
+    }
+
+return DuraMas;
+
+
+}
+
 
 
 
@@ -423,6 +484,263 @@ toroide interseccionarVivas(toroide t, toroide u) {
 
 //EJ 13************************************************************//
 
+void UnMovArriba(toroide &t){
+    toroide MovidoArriba;
+    for(int f = 1; f < t.size() ;f++){
+        MovidoArriba.push_back(t[f]);
+
+    }
+    MovidoArriba.push_back(t[0]);
+    t = MovidoArriba;
+
+}
+
+// tiene sentido si tiene la misma longitud cada secuencia
+void UnMovAlaDerecha(toroide &t){
+    toroide MovidoAlaDerecha;
+    vector<bool> secTrasl;
+    for(int f = 0; f < t.size() ;f++){
+        secTrasl.push_back(t[f][(t[0]).size()-1]);
+        for(int c = 0; c <((t[0]).size()-1); c++){
+            secTrasl.push_back(t[f][c]);
+
+        }
+        MovidoAlaDerecha.push_back(secTrasl);
+        secTrasl.clear();
+
+    }
+    t = MovidoAlaDerecha;
+
+}
+
+int mod(int x, int y){
+    int resp = 0;
+    if(x >= 0){
+        resp = x % y;
+    }
+    else{
+        resp = (x-x*y) % y;
+    }
+    return resp;
+}
+
+//tiene sentido si es un toroide
+toroide ElTrasladadodeT(toroide t, int movf, int movc){
+    toroide Trasladado;
+    if((movf == 0) && (movc == 0)){
+        Trasladado = t;
+    }
+    else{
+
+
+            while(mod(movc, t[0].size()) > 0){
+                UnMovAlaDerecha(t);
+                movc--;
+            }
+            while(mod(movf, t.size()) > 0){
+                UnMovArriba(t);
+                movf--;
+            }
+            Trasladado = t;
+        }
+
+
+
+
+
+    return Trasladado;
+
+}
+//Tiene sentido si t y u son toroides y ademas tienen la misma dimension
+bool esTrasladada(toroide t, toroide u){
+    int contador = 0;
+    for(int movf = 0 ; movf < t.size(); movf++){
+        for(int movc = 0; movc < (t[0]).size() && ElTrasladadodeT(t, movf, movc) != u; movc++){
+            contador++;
+        }
+    }
+
+    return (contador < t.size()*(t[0]).size());
+
+
+}
+
 //EJ 14************************************************************//
 
+
+bool FilaMuerta(toroide t, int filaT){
+    int contador = 0;
+    for(int c = 0; c < (t[filaT]).size() && t[filaT][c] != true ;c++){
+        contador++;
+
+
+    }
+
+    return contador == (t[filaT]).size();
+}
+
+// filaT en Rango de t. Tiene sentido si hay una posicion viva en la fila almenos
+pair <int, int> PosPrimeroDeLaFila(toroide t, int filaT){
+    int h = 0;
+    for(int c = 0; (c < (t[filaT]).size()) && t[filaT][c] != true ; c++){
+        h = c;
+
+    }
+    return mp(filaT, h);
+
+}
+
+pair <int, int> PosDelUltimoVivo(toroide t) {
+    int i = 0;
+    int j = 0;
+    for (int f = t.size() - 1; f >= 0; f--) {
+        for (int c = ((t[t.size() - 1]).size() - 1); (c >= 0) && (t[f][c] != true); c--) {
+         i = c;
+        }
+
+        if(t[f][i] == true){
+            j = f;
+            f = -1;
+        }
+
+
+    }
+
+    return mp(j,i);
+}
+
+
+
+//Tiene sentido si hay almenos un vivo
+pair<int,int> PosDelPrimerVivo(toroide t){
+    int i = 0;
+    int j = 0;
+    for(int f = 0; f < t.size();f++){
+        for(int c = 0; c < (t[0]).size() && t[f][c] != true; c++){
+         i = c;
+
+        }
+        if(t[f][i] == true){
+            j = f;
+            f = t.size();
+
+        }
+
+    }
+
+    return mp(j,i);
+
+}
+
+vector<pair<int, int>> ColectorDePosicionesVivas(toroide t){
+    vector<pair<int,int>> PosVivas;
+    for(int f = 0; f < t.size(); f++){
+        for(int c = 0; c < (t[0]).size(); c++){
+            if(t[f][c] == true){
+                PosVivas.push_back(mp(f,c));
+            }
+
+        }
+    }
+
+    return PosVivas;
+
+}
+
+//funciona con el colector de posicionesVivas
+// (fila,columna)
+//Tiene Sentido si almenos existe un elemento
+int FilaMinima(vector<pair<int,int>> Posvivas){
+    int FMin = (Posvivas[0]).first;
+    for(int i = 1; i < Posvivas.size();i++){
+        if(Posvivas[i].first <= FMin){
+            FMin = (Posvivas[i]).first;
+        }
+
+    }
+    return FMin;
+
+}
+
+int FilaMaxima(vector<pair<int,int>> Posvivas){
+    int FMax = (Posvivas[0]).first;
+    for(int i = 1; i < Posvivas.size();i++){
+        if(Posvivas[i].first >= FMax){
+            FMax =(Posvivas[i]).first;
+        }
+
+    }
+    return FMax;
+
+}
+
+int ColumnaMinima(vector<pair<int,int>> Posvivas){
+    int CMin = (Posvivas[0]).second;
+    for(int i = 1; i < Posvivas.size();i++){
+        if(Posvivas[i].second <= CMin){
+            CMin = (Posvivas[i]).second;
+        }
+
+    }
+    return CMin;
+
+}
+
+int ColumnaMaxima(vector<pair<int,int>> Posvivas){
+    int CMax = (Posvivas[0]).second;
+    for(int i = 1; i < Posvivas.size();i++){
+        if(Posvivas[i].second >= CMax){
+            CMax = (Posvivas[i]).second;
+        }
+
+    }
+    return CMax;
+
+}
+
+
+int AreaMinimaVivas(toroide t){
+    vector<pair<int,int>> PosVivas;
+    PosVivas = ColectorDePosicionesVivas(t);
+    int sumaArea = 0;
+    for(int f = FilaMinima(PosVivas) ; f <= FilaMaxima(PosVivas);f++){
+        for(int c = ColumnaMinima(PosVivas); c <= ColumnaMaxima(PosVivas); c++){
+            sumaArea++;
+
+        }
+    }
+
+    return sumaArea;
+}
+
+vector <int> AreasMinimasDeCadaTrasladado(toroide t){
+    vector<int> ColectorDeAreasMin;
+    for(int movf = 0; movf < t.size();movf++){
+        for(int movc = 0; movc < (t[0]).size(); movc++){
+            ColectorDeAreasMin.push_back(AreaMinimaVivas(ElTrasladadodeT(t,movf,movc)));
+
+        }
+    }
+
+    return ColectorDeAreasMin;
+
+
+}
+
+int BuscarElAreaMasMinimaViva(toroide t){
+    int IndAreaMin = 0;
+    vector<int> ColeccionDeAreas;
+    ColeccionDeAreas = AreasMinimasDeCadaTrasladado(t);
+    for(int i = 1; i < (ColeccionDeAreas).size();i++ ){
+        if( ColeccionDeAreas[i] <= ColeccionDeAreas[IndAreaMin]){
+            IndAreaMin = i;
+        }
+
+
+    }
+
+    return ColeccionDeAreas[IndAreaMin];
+    
+
+}
 
