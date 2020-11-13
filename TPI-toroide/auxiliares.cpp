@@ -49,28 +49,18 @@ bool esToroide(toroide t){
 //EJ 2************************************************************//
 
 bool EstoroideMuerto(toroide const &t) {
-
     bool resp = false;
-    int f = 0;
-    int c = 0;
-    int chequeado = 0;
-        while (f < t.size()) {
-            while (c < (t[f]).size()) {
-                if (!t[f][c]) {
-                    chequeado++;
-                }
-                else {
-                }
-                c++;
+    int cheq = 0;
+    for(int f = 0;f < t.size(); f++){
+        for(int c = 0; c < t[f].size(); c++){
+            if(t[f][c] == false){
+                cheq = cheq + 1;
+
             }
-            c = 0;
-            f++;
+
         }
-
-
-
-    resp = (t.size() > 0) && (chequeado == (t[0].size()) * (t.size()));
-    return resp;
+    }
+    return (cheq == (t.size())*((t[0]).size()));
 
 }
 
@@ -218,42 +208,28 @@ bool cumpleEvolucionCiclica(toroide t){
     toroide tInicial;
     tInicial =  t;
     evolucionarToroideUnTick(t);
-    while(not (EstoroideMuerto(t)) && (t != tInicial)){
+    while( !(EstoroideMuerto(t)) && (t != tInicial)){
         evolucionarToroideUnTick(t);
 
 
     }
-    return (t == tInicial) && not(EstoroideMuerto(t));
+    return (t == tInicial) && !(EstoroideMuerto(t));
 
 }
 
 
-//Solo para toroides que sabemos que son ciclicos
+
 //Si sabemos que t NO muere tiene sentido
-int TickDondeSeRepiteTdeLaEvolucion(toroide t){
-   int tick = 1;
-   vector<toroide> tt;
-   tt.push_back(t);
-   evolucionarToroideUnTick(t);
-
-   while(not estaTenTT(tt,t)){
-       evolucionarToroideUnTick(t);
-       tt.push_back(t);
-       tick++;
-
-   }
-   return tick;
-
-}
-
 int TickDondeSeRepiteT(toroide t){
     int tick = 1;
+    toroide g;
+    g = t;
     toroide tInicial;
     tInicial = t;
-    evolucionarToroideUnTick(t);
+    evolucionarToroideUnTick(g);
 
-    while((t  != tInicial)){
-        evolucionarToroideUnTick(t);
+    while((g  != tInicial)){
+        evolucionarToroideUnTick(g);
         tick++;
 
     }
@@ -264,9 +240,6 @@ int TickDondeSeRepiteT(toroide t){
 
 
 //EJ 10************************************************************//
-bool mismaDimension(toroide t, toroide u){
-    return (t.size() == u.size()) && (cant_columnas(t) == cant_columnas(u));
-}
 
 bool estaTenTT(vector<toroide> tt,toroide t){
     int cheq = 0;
@@ -279,11 +252,12 @@ bool estaTenTT(vector<toroide> tt,toroide t){
 }
 //si el toroide muere tiene sentido
 int TickDondeMuere(toroide t){
-    int tick = 1;
-    evolucionarToroideUnTick(t);
-    while(not EstoroideMuerto(t)){
-        evolucionarToroideUnTick(t);
-        tick++;
+    toroide g;
+    g = t;
+    int tick = 0;
+    for(tick; !(EstoroideMuerto(g)); tick++){
+        evolucionarToroideUnTick(g);
+
 
     }
     return tick;
@@ -299,7 +273,9 @@ int TickDondeMuere(toroide t){
 vector<toroide> EvolucionesDeTNoCiclico(toroide t){
     vector<toroide> Evoluciones;
     Evoluciones.push_back(t);
-    for(int p = 1; p <= TickDondeMuere(t); p++){
+    int tickFinal;
+    tickFinal = TickDondeMuere(t);
+    for(int p = 1; p <= tickFinal; p++){
         evolucionarToroideUnTick(t);
         Evoluciones.push_back(t);
     }
@@ -311,7 +287,8 @@ vector<toroide> EvolucionesDeTNoCiclico(toroide t){
 vector<toroide> EvolucionesDeTCiclicos(toroide t){
     vector<toroide> Evoluciones;
     Evoluciones.push_back(t);
-    for(int p = 1;p < TickDondeSeRepiteTdeLaEvolucion(t);p++){
+    int tickFinal = TickDondeSeRepiteT(t);
+    for(int p = 1;p < tickFinal;p++){
         evolucionarToroideUnTick(t);
         Evoluciones.push_back(t);
     }
@@ -321,64 +298,29 @@ vector<toroide> EvolucionesDeTCiclicos(toroide t){
 
 
 
-// el ciclico original esta contemplado
-
-bool cumpleEvolucionCiclicaCorrida(toroide t){
-    vector<toroide> tt;
-    tt.push_back(t);
-    evolucionarToroideUnTick(t);
-    while(not(EstoroideMuerto(t)) && not(estaTenTT(tt,t))){
-        tt.push_back(t);
-        evolucionarToroideUnTick(t);
 
 
-    }
-
-    return (not(EstoroideMuerto(t))) && estaTenTT(tt,t);
-}
-
-
-bool cumpleEvoCiclicaCorrida(toroide t){
-    vector<toroide> tt;
-    toroide g;
-    g = t;
-    tt.push_back(g);
-    evolucionarToroideUnTick(g);
-    while(not(EstoroideMuerto(g)) && not(estaTenTT(tt,g))){
-        tt.push_back(g);
-        evolucionarToroideUnTick(g);
-
-
-    }
-
-    return (not(EstoroideMuerto(g))) && estaTenTT(tt,g);
-}
-
-
-
-
-bool EncontrarElSegundo_en_EvosDelPrimero(toroide t, toroide g){
-    vector<toroide> tt;
-    int cheq = 0;
-    if(cumpleEvoCiclicaCorrida(t)) {
-        tt = EvolucionesDeTCiclicos(t);
-
-        for (int p = 0; (p < tt.size()) && (tt[p] != g); p++) {
-            cheq++;
-        }
+bool EncontrarElSegundo_en_EvosDelPrimero(toroide t, toroide u){
+    vector<toroide> ts;
+    if(cumpleEvolucionCiclica(t)) {
+        ts = EvolucionesDeTCiclicos(t);
     }
     else{
-        tt = EvolucionesDeTNoCiclico(t);
-        for (int p = 0; (p < tt.size()) && (tt[p] != g); p++) {
-            cheq++;
-        }
+        ts = EvolucionesDeTNoCiclico(t);
 
     }
-    return (cheq < tt.size());
+    int cheq = 0;
+//Hay alguna evolucion de t tal que sea igual a g?
+    for (int p = 0; (p < ts.size()) && (ts[p] != u); p++) {
+        cheq++;
+    }
+
+
+    return (cheq < ts.size());
 }
 
 bool sonPrimosLejanos(toroide t, toroide u){
-return EncontrarElSegundo_en_EvosDelPrimero(t, u);
+return EncontrarElSegundo_en_EvosDelPrimero(t, u) || EncontrarElSegundo_en_EvosDelPrimero(u, t);
 }
 
 //EJ 11************************************************************//
@@ -392,44 +334,6 @@ bool esEvolucionNivelK(toroide tf, toroide ti, int k){
     return resp;
 
 }
-
-
-
-
-
-
-
-
-
-
-bool todosVivos(vector <toroide> ts){
-    int cheq = 0;
-    for(int i = 0 ; (i < ts.size()) && not (EstoroideMuerto(ts[i]))  ; i++ ){
-        cheq++;
-    }
-    return (cheq == ts.size());
-}
-
-bool todosValidos(vector<toroide> ts){
-    int cheq = 0;
-    for(int i = 0; (i < ts.size()) && (esToroide(ts[i])); i++){
-        cheq++;
-    }
-
-    return (cheq == (ts.size()));
-
-}
-
-bool todosSeExtinguen(vector <toroide> ts){
-    int cheq = 0;
-    for(int i = 0; (i < ts.size()) && not(cumpleEvolucionCiclicaCorrida(ts[i]));i++){
-         cheq++;
-    }
-
-    return (cheq == ts.size());
-
-}
-
 
 //tiene sentido si considero la Pre del Ej 11
 // Todos Vivos, Todos Validos y se Extinguen en algun momento

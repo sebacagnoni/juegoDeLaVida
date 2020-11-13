@@ -53,27 +53,21 @@ toroide evolucionartoroideKVecesT(toroide t, int k);
 
 //Ej 9
 bool cumpleEvolucionCiclica(toroide t);
-bool seExtingueEnUnTick(toroide &t);
 int TickDondeSeRepiteT(toroide t);
 //
 
 //Ej 10
 int TickDondeSeRepiteTdeLaEvolucion(toroide t);
 bool estaTenTT(vector<toroide> tt, toroide t);
-bool cumpleEvolucionCiclicaCorrida(toroide t);
 int TickDondeMuere(toroide t);
 vector<toroide> EvolucionesDeTCiclicos(toroide t);
 vector<toroide> EvolucionesDeTNoCiclico(toroide t);
-bool mismaDimension(toroide t, toroide u);
 bool sonPrimosLejanos(toroide t, toroide u);
 bool EncontrarElSegundo_en_EvosDelPrimero(toroide t, toroide g);
 bool cumpleEvoCiclicaCorrida(toroide t);
 
 //
 //Ej 11
-bool todosValidos(vector<toroide> ts);
-bool todosVivos(vector <toroide> ts);
-bool todosSeExtinguen(vector <toroide> ts);
 int ElIndiceDelQueDuraMas(vector<toroide> ts);
 //
 //Ej 12
